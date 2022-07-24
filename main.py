@@ -7,23 +7,24 @@ class Slot:
         self.index = b
 
 
-for file_name in range(1, 11):
+# we can totally skip the below outer loop, but I have added it for convenience.
+for file_name in range(1, 11):  # as we have 10 input files.
     input_file = open("input_files/" + str(file_name) + ".in")
     rows = input_file.read().strip().split('\n')
     total_lifeguards = int(rows[0])
     slotList = [0] * 2 * total_lifeguards
-    actual_max_time = 0
+    actual_max_time = 0  # the max time that will be covered if no guard was to be fired.
     unique_time_list = [0] * total_lifeguards
     last_time = 0
     unique_time_set = set()
-    maximum_common_time = 0
+    maximum_common_time = 0  # the maximum time that will be covered, if one lifeguard is fired.
 
-    for lifeguard in range(total_lifeguards):
+    for lifeguard in range(total_lifeguards):  # reading the input file rows.
         shift_time = rows[lifeguard + 1].split(' ')
         slotList[2 * lifeguard] = Slot(int(shift_time[0]), lifeguard)
         slotList[2 * lifeguard + 1] = Slot(int(shift_time[1]), lifeguard)
 
-    slotList.sort(key=lambda state: state.time)
+    slotList.sort(key=lambda state: state.time)  # sorting on the basis of time.
 
     for slot in slotList:
         if len(unique_time_set) == 1:
